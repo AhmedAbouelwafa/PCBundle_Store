@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Ecommerce website</title>
+    <link rel="stylesheet" href="../CSS Files/register.css">
+    <!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+       <main class="main">
+           <div class="logo">
+            <a href="../HTML Files/Home.html"> <img src="../images/logo.png" alt=""></a>
+           </div>
+        <div class="container">
+
+            <h1>إنشاء حساب جديد</h1>
+
+            <form class="frm" action="" method="">
+ 
+                           <!-- fname and lname inputs -->
+
+                <div class="name-group">
+                <input type="text" name="firstname" id="register-firstname" placeholder="الاسم الأول" required>
+                <input type="text" name="lastname" id="register-lastname" placeholder="الاسم الأخير" required>
+                </div>
+               
+                            <!-- email input -->
+
+                <input type="email" name="email" id="register-email" placeholder="الايميل" required>
+
+                          <!-- pass and confirm pass -->
+
+                <div class="password-container">
+                      <input type="password" name="password" id="register-password" placeholder="الرقم السري" required>
+                      <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('register-password', this)"></i>
+                </div>
+
+               <div class="password-container">
+                    <input type="password" name="confirm_password" id="register-confirm-password" placeholder="تأكيد الرقم السري" required>
+                    <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('register-confirm-password', this)"></i>
+               </div>
+
+                        <!-- terms checkbox -->
+
+               <div class="checkbox-group">
+                    <input type="checkbox" name="terms" id="terms" required>
+                    <label for="terms">أوافق على شروط الاستخدام وسياسة الخصوصية</label>
+               </div>
+
+                      <!-- register button -->
+
+              <button class="btn" type="submit" onclick="register()">انشاء حساب</button>
+
+                     <!-- link to login page -->
+
+               <p class="login-link"> لديك حساب بالفعل ؟<a class="link" href="../HTML Files/login.html"> تسجيل الدخول </a></p>
+
+            </form>
+           
+        </div>
+       </main>
+<script src="../JS Files/login-register.js"></script>
+</body>
+</html>

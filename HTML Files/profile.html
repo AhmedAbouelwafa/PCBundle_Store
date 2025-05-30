@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ملفي الشخصي</title>
+  <link rel="stylesheet" href="../CSS Files/profile.css">
+</head>
+<body>
+  <div class="profile-container">
+    <h1>ملفي الشخصي</h1>
+
+    <div class="profile-card">
+      <img src="../images/logo.png" alt="الصورة الشخصية" class="avatar">
+
+      <div class="profile-info">
+        <p><strong> الاسم: </strong> <span id="profile-name"> -- </span></p>
+        <p><strong> البريد الإلكتروني: </strong> <span id="profile-email">--</span></p>
+        <p><strong> الرقم السري: </strong> <span id="password"> -- /span></p>
+      </div>
+      <div class="profile-buttons">
+        <button onclick="editProfile()">تعديل البيانات</button>
+        <button onclick="logout()">تسجيل الخروج</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../JS Files/profile.js"></script>
+</body>
+</html>
