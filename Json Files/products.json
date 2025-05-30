@@ -1,0 +1,105 @@
+[
+  {
+    "image": "../images/products/prd-1.png",
+    "title": "ASUS TUF A15 FA507NVR-LP007W Gaming Laptop AMD Ryzen 7 7435HS",
+    "old_price": "3500",
+    "new_price": "2800"
+  },
+  {
+    "image": "../images/products/prd-2.png",
+    "title": "High-Performance Wireless Mouse - Ergonomic Design",
+    "old_price": "1800",
+    "new_price": "1500"
+  },
+  {
+    "image": "../images/products/prd-3.png",
+    "title": "Ultra-Fast SSD 1TB - Boost Your PC Speed",
+    "old_price": "4000",
+    "new_price": "3400"
+  },
+  {
+    "image": "../images/products/prd-4.png",
+    "title": "4K Ultra-HD Monitor 27\" - Vivid Color & Clarity",
+    "old_price": "9500",
+    "new_price": "8500"
+  },
+  {
+    "image": "../images/products/prd-5.png",
+    "title": "Professional Headset with Noise-Cancellation Mic",
+    "old_price": "2500",
+    "new_price": "2200"
+  },
+  
+  {
+    "image": "../images/products/prd-6.png",
+    "title": "Compact Mechanical Keyboard - RGB Customizable",
+    "old_price": "2700",
+    "new_price": "2300"
+  },
+  {
+    "image": "../images/products/prd-7.png",
+    "title": "Precision Gaming Mouse - Adjustable DPI Settings",
+    "old_price": "2000",
+    "new_price": "1700"
+  },
+  {
+    "image": "../images/products/prd-8.png",
+    "title": "Powerful CPU Cooler - Efficient Heat Dissipation",
+    "old_price": "1800",
+    "new_price": "1500"
+  },
+  {
+    "image": "../images/products/prd-9.png",
+    "title": "Ergonomic Office Chair - Comfortable & Stylish",
+    "old_price": "4500",
+    "new_price": "4000"
+  },
+  {
+    "image": "../images/products/prd-10.png",
+    "title": "High-Definition Webcam - Perfect for Streaming",
+    "old_price": "2200",
+    "new_price": "1900"
+  },
+  {
+    "image": "../images/products/prd-1.png",
+    "title": "ASUS TUF Gaming Laptop - Ultimate Performance",
+    "old_price": "3600",
+    "new_price": "2900"
+  },
+  {
+    "image": "../images/products/prd-4.png",
+    "title": "4K Ultra-HD Monitor 27\" - Smooth Gaming Experience",
+    "old_price": "9600",
+    "new_price": "8600"
+  },
+  {
+    "image": "../images/products/prd-6.png",
+    "title": "RGB Mechanical Keyboard - Compact Design",
+    "old_price": "2800",
+    "new_price": "2400"
+  },
+  {
+    "image": "../images/products/prd-9.png",
+    "title": "Ergonomic Office Chair - Premium Comfort",
+    "old_price": "4600",
+    "new_price": "4100"
+  },
+  {
+    "image": "../images/products/prd-3.png",
+    "title": "1TB SSD - High-Speed Data Transfer",
+    "old_price": "4200",
+    "new_price": "3500"
+  },
+  {
+    "image": "../images/products/prd-8.png",
+    "title": "Silent CPU Cooler - Optimal Cooling System",
+    "old_price": "1900",
+    "new_price": "1600"
+  },
+  {
+    "image": "../images/products/prd-10.png",
+    "title": "High-Definition Webcam - Perfect for Streaming",
+    "old_price": "2200",
+    "new_price": "1900"
+  }
+]
