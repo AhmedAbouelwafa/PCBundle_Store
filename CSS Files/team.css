@@ -4,6 +4,10 @@
     padding-bottom: var(--section-padding);
     position: relative;
     direction: ltr;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .team h3{

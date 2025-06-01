@@ -2,11 +2,42 @@ fetch("../Json Files/products.json")
   .then((response) => response.json())
   .then((data) => {
     const cardsContainer = document.querySelector(".cards");
+    const prds_num = document.querySelector(".prds-cart");
+    const constPrice = document.querySelector(".price");
+    const cartSummaryPrice = document.querySelector(".total-price"); // إضافة الـ cart-summary
+    const carticon = document.querySelector(".carticon") || document.querySelector(".fa-cart-plus");
+    const heartIcon = document.querySelector(".heartIcon");
+    const numfav = document.querySelector(".love-cart");
 
+    let cartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
+    let wishlistItems = JSON.parse(sessionStorage.getItem("wishlist")) || [];
+
+    // دالة تحديث الإجمالي
+    const updateTotalPrice = () => {
+      const totalPrice = cartItems.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+      if (constPrice) constPrice.textContent = `${totalPrice.toFixed(2)} EGP`;
+      if (cartSummaryPrice) cartSummaryPrice.textContent = `${totalPrice.toFixed(2)} EGP`;
+      if (prds_num) prds_num.textContent = cartItems.length;
+      if (cartItems.length > 0 && carticon) carticon.style.color = "rgb(229,157,3)";
+      else if (carticon) carticon.style.color = "black";
+    };
+
+    // تحديث الإجمالي عند التحميل
+    updateTotalPrice();
+    if (numfav) numfav.textContent = wishlistItems.length;
+    if (wishlistItems.length > 0 && heartIcon) heartIcon.style.color = "red";
+
+    // مراقبة تغييرات السلة
+    const updateCartItems = () => {
+      cartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
+      updateTotalPrice();
+    };
+    setInterval(updateCartItems, 1000); // تحديث كل ثانية
+
+    // عرض المنتجات
     data.slice(0, 8).forEach((product) => {
       const card = document.createElement("div");
       card.classList.add("card");
-
       card.innerHTML = `
         <img class="card-logo" src="../images/logo.png" alt="">
         <a href="product_detail.html" style="display: inline-block;"><img class="prd-image" src="${product.image}" style="max-width: 200px;"></a>
@@ -16,9 +47,7 @@ fetch("../Json Files/products.json")
         <a class="add-to-cartBtn" href="#">
             <span>إضافة إلى السلة</span>
             <i class="fa-solid fa-cart-plus"></i>
-            <div class="cart-success-message">
-              ✅ Added to Cart Successfully!
-            </div>
+            <div class="cart-success-message">✅ Added to Cart Successfully!</div>
         </a>
         <div class="listaya">
             <i class="fa-solid fa-code-compare compare"><span class="extra1"></span></i>
@@ -26,66 +55,41 @@ fetch("../Json Files/products.json")
             <i class="fa-solid fa-heart addfav"><span class="extra1"></span></i>
         </div>
       `;
-
       cardsContainer.appendChild(card);
     });
 
-    const add_to_cartBtns = document.querySelectorAll(".add-to-cartBtn");
-    const prd_image = document.querySelectorAll(".prd-image");
-    const prds_num = document.querySelector(".prds-cart");
-    const constPrice = document.querySelector(".price");
-    const carticon =
-      document.querySelector(".carticon") ||
-      document.querySelector(".fa-cart-plus"); // Fallback
-    const heartIcon = document.querySelector(".heartIcon");
-
-    // تحديث السلة والمفضلة عند تحميل الصفحة
-    let cartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
-    let wishlistItems = JSON.parse(sessionStorage.getItem("wishlist")) || [];
-    prds_num.textContent = cartItems.length;
-    let totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
-    constPrice.textContent = `${totalPrice.toFixed(2)} EGP`;
-    if (cartItems.length > 0 && carticon) {
-      carticon.style.color = "rgb(229,157,3)";
-    }
-    const numfav = document.querySelector(".love-cart");
-    numfav.textContent = wishlistItems.length;
-    if (wishlistItems.length > 0 && heartIcon) {
-      heartIcon.style.color = "red";
-    }
-
-    // ------------------------------------------------------------------
-    prd_image.forEach((btn) => {
+    // إضافة حدث لصور المنتجات
+    document.querySelectorAll(".prd-image").forEach((btn) => {
       btn.addEventListener("click", function () {
         const parentCard = this.closest(".card");
         const data = {
           image: parentCard.querySelector(".prd-image")?.src || "",
-          title:
-            parentCard.querySelector(".prd-title")?.textContent.trim() || "",
-          old_price:
-            parentCard.querySelector(".old_price")?.textContent.trim() || "",
-          new_price:
-            parentCard.querySelector(".new_price")?.textContent.trim() || "",
+          title: parentCard.querySelector(".prd-title")?.textContent.trim() || "",
+          old_price: parentCard.querySelector(".old_price")?.textContent.trim() || "",
+          new_price: parentCard.querySelector(".new_price")?.textContent.trim() || "",
         };
         sessionStorage.setItem("Clicked_Card", JSON.stringify(data));
       });
     });
 
-    add_to_cartBtns.forEach((btn) => {
+    // إضافة حدث لزر "إضافة إلى السلة"
+    document.querySelectorAll(".add-to-cartBtn").forEach((btn) => {
       btn.addEventListener("click", function (event) {
         event.preventDefault();
         const parentCard = this.closest(".card");
         const cartSuccess = parentCard.querySelector(".cart-success-message");
-        
-        //------------------------------------------------------------------
+
         cartSuccess.classList.add("show");
-        setTimeout(() => {
-          cartSuccess.classList.remove("show");
-        }, 500);
+        setTimeout(() => cartSuccess.classList.remove("show"), 500);
 
         const priceElement = parentCard.querySelector(".new_price");
-        let priceValue = priceElement.textContent.replace("EGP", "").trim();
+        let priceValue = priceElement.textContent.replace("EGP", "").replace(",", "").trim();
         priceValue = parseFloat(priceValue);
+
+        if (isNaN(priceValue)) {
+          console.error("Invalid price for product:", parentCard.querySelector(".prd-title").textContent);
+          return;
+        }
 
         const cartItem = {
           title: parentCard.querySelector(".prd-title").textContent.trim(),
@@ -96,20 +100,16 @@ fetch("../Json Files/products.json")
         cartItems.push(cartItem);
         sessionStorage.setItem("cart", JSON.stringify(cartItems));
         console.log("Added to cart:", cartItem);
-
-        prds_num.textContent = cartItems.length;
-        totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
-        constPrice.textContent = `${totalPrice.toFixed(2)} EGP`;
-        if (carticon) carticon.style.color = "rgb(229,157,3)";
+        updateTotalPrice();
       });
     });
 
-    const addfavbtns = document.querySelectorAll(".addfav");
-    addfavbtns.forEach((btn) => {
+    // إضافة حدث لزر "إضافة إلى المفضلة"
+    document.querySelectorAll(".addfav").forEach((btn) => {
       btn.addEventListener("click", function () {
         const parentCard = this.closest(".card");
         const priceElement = parentCard.querySelector(".new_price");
-        let priceValue = priceElement.textContent.replace("EGP", "").trim();
+        let priceValue = priceElement.textContent.replace("EGP", "").replace(",", "").trim();
         priceValue = parseFloat(priceValue);
 
         const wishlistItem = {
@@ -118,30 +118,20 @@ fetch("../Json Files/products.json")
           image: parentCard.querySelector(".prd-image").getAttribute("src"),
         };
 
-        // Check لو المنتج موجود بالفعل
-        const itemExists = wishlistItems.some(
-          (item) => item.title === wishlistItem.title
-        );
+        const itemExists = wishlistItems.some((item) => item.title === wishlistItem.title);
         if (!itemExists) {
           wishlistItems.push(wishlistItem);
-          sessionStorage.setItem("wishlist", JSON.stringify(wishlistItems));
           btn.style.color = "red";
-          numfav.textContent = wishlistItems.length;
           if (heartIcon) heartIcon.style.color = "red";
-          console.log("Added to wishlist:", wishlistItem);
         } else {
-          const updatedWishlist = wishlistItems.filter(
-            (item) => item.title !== wishlistItem.title
-          );
-          wishlistItems.length = 0;
-          wishlistItems.push(...updatedWishlist);
-          sessionStorage.setItem("wishlist", JSON.stringify(wishlistItems));
+          wishlistItems = wishlistItems.filter((item) => item.title !== wishlistItem.title);
           btn.style.color = "black";
-          numfav.textContent = wishlistItems.length;
-          if (wishlistItems.length === 0 && heartIcon)
-            heartIcon.style.color = "black";
-          console.log("Removed from wishlist:", wishlistItem);
+          if (wishlistItems.length === 0 && heartIcon) heartIcon.style.color = "black";
         }
+
+        sessionStorage.setItem("wishlist", JSON.stringify(wishlistItems));
+        if (numfav) numfav.textContent = wishlistItems.length;
+        console.log(itemExists ? "Removed from wishlist:" : "Added to wishlist:", wishlistItem);
       });
     });
   })

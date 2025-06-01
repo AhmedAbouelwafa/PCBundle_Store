@@ -16,18 +16,6 @@ tasafa7.addEventListener("click", function () {
 
 
 
-// const prd_image = document.querySelectorAll('prd-image');
-
-// prd_image.forEach(btn => {
-//   btn.addEventListener('click', function(event) {
-//     event.preventDefault();
-//     const parentCard = this.closest('.card');
-
-//     console.log('Clicked Card:', parentCard);
-//   });
-// });
-
-
 
 
 
