@@ -63,9 +63,9 @@ function login() {
 
   if (matchedUser) {
     alert("successfully logged in!");
+      localStorage.setItem("isLoggedIn", "true");
     window.location.href = "../HTML Files/Home.html";
-    profile.style.display = "block";
-    login.style.display = "none";
+    
 
   }
    else 
@@ -86,6 +86,23 @@ function togglePassword(inputId, iconElement) {
       iconElement.classList.toggle("fa-eye");
       iconElement.classList.toggle("fa-eye-slash");
     }
+
+
+    // profile 
+
+  //  document.addEventListener("DOMContentLoaded", function () {
+  //   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  //   const profile = document.getElementById("profile");
+  //   const login = document.getElementById("logintxt");
+
+  //   if (isLoggedIn) {
+  //     profile.style.display = "flex";
+  //     login.style.display = "none";
+  //   } else {
+  //     profile.style.display = "none";
+  //     login.style.display = "flex";
+  //   }
+  // });
 
  
 
